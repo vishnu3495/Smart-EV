@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_customer_tree" model="ir.ui.view">
+        <field name="name">customer.details.tree</field>
+        <field name="model">customer.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="cus_name"/>
+                <field name="dob" options="{'format': 'DD/MM/YYYY'}"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="address"/>
+                <field name="emails"/>
+                <field name="mobile"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_customer_kanban" model="ir.ui.view">
+        <field name="name">customer.details.kanban</field>
+        <field name="model">customer.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="ref"/>
+                <field name="cus_name"/>
+                <field name="gender"/>
+                <field name="mobile"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="kanban_details">
+                                <div>
+                                    <field name="image" widget="image" class="oe_avatar"/>
+                                </div>
+                                <ul>
+                                    <li>
+                                        Reference:
+                                        <field name="ref"/>
+                                    </li>
+                                    <li>
+                                        Name:
+                                        <field name="cus_name"/>
+                                    </li>
+                                     <li>
+                                        Gender:
+                                        <field name="gender"/>
+                                    </li>
+                                    <li>
+                                        Mobile:
+                                        <field name="mobile"/>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_customer_form" model="ir.ui.view">
+        <field name="name">customer.details.form</field>
+        <field name="model">customer.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_draft" name="action_draft" string="Reset to Draft" class='btn-primary'
+                            type="object" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <button id="button_approve" name="action_approve" string="Approve" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="smart_electric_charger.group_smart_ev_admin"/>
+                    <button id="button_cancel" name="action_cancel" string="Cancel" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','approved')]}" groups="smart_electric_charger.group_smart_ev_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,cancelled"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Draft" bg_color="bg-info" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible':[('state','!=','approved')]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cus_name"/>
+                            <field name="dob" options="{'format': 'DD/MM/YYYY'}"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                            <field name="emails"/>
+                            <field name="mobile"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_customer_search" model="ir.ui.view">
+        <field name="name">customer.details.search</field>
+        <field name="model">customer.details</field>
+        <field name="arch" type="xml">
+            <search string="Customers">
+                <field name="cus_name"/>
+                <filter string="Male" name="male" domain="[('gender','=','male')]"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"/>
+                <filter string="Others" name="other" domain="[('gender','=','other')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                    <filter string="Customer Name" name="cus_name" context="{'group_by':'cus_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record id="customer_action" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">customer.details</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="customer_action_admin" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">customer.details</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+
+</odoo>

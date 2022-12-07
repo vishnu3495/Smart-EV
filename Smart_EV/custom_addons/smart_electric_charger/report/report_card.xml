@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <u>
+                    <h2 style="text-align:center;color:#941212">PAYMENT INVOICE</h2>
+                </u>
+
+                <h3 style="color:#941212">CUSTOMER DETAILS</h3>
+
+                <img align="right" t-att-src="image_data_uri(doc.image)"
+                     t-if="doc.image"
+                     alt="Image is not loading"
+                     height="100" width="100"/>
+
+                <div cellpadding="0" cellspacing="0" style="margin-top:50px;width:20%;float:right;">
+                    <t t-if="doc.reg_id.reg_no">
+                        <t t-set="qrcode" t-value="doc.get_bill_qrcode(doc.reg_id.reg_no)"/>
+                        <img t-attf-src="data:image/*;base64,{{qrcode}}"
+                             style="max-height: 130px;max-width: 260px;margin-top:2px"/>
+                    </t>
+                </div>
+                CUSTOMER NAME:
+                <strong>
+                    <span t-field="doc.cus_name_id"></span>
+                </strong>
+                <br/>
+                REGISTRATION NO:
+                <strong>
+                    <span t-field="doc.reg_id"></span>
+                </strong>
+                <br/>
+                COMPANY VEHICLE:
+                <strong>
+                    <span t-field="doc.vehicle_id"></span>
+                </strong>
+                <br/>
+                COMPANY MODEL:
+                <strong>
+                    <span t-field="doc.model_id"></span>
+                </strong>
+                <br/>
+                STATION NAME:
+                <strong>
+                    <span t-field="doc.com_name_id"></span>
+                </strong>
+                <br/>
+                SLOT DATE:
+                <strong>
+                    <span t-field="doc.date"></span>
+                </strong>
+                <br/>
+                SLOT TIME:
+                <strong>
+                    <span t-field="doc.times_id"></span>
+                </strong>
+                <br/>
+                CHARGING HOURS:
+                <strong>
+                    <span t-field="doc.hours_time"></span>
+                </strong>
+                <br/>
+                CONNECTION TYPE:
+                <strong>
+                    <span t-field="doc.type"></span>
+                </strong>
+                <br/>
+                CONNECTOR TYPE:
+                <strong>
+                    <span t-field="doc.con_type_id"></span>
+                </strong>
+                <h3 style="color:#941212">PAYMENT DETAILS</h3>
+                <table width="100%">
+
+                    <tr style="text-align:center;border:2px;background-color:#941244;solid-black;">
+                        <th>INITIAL %</th>
+                        <th>INITIAL RANGE</th>
+                        <th>FINAL %</th>
+                        <th>FINAL RANGE</th>
+                    </tr>
+                    <tr t-foreach='docs' t-as='doc'>
+                        <td>
+                            <span t-field="doc.ini_chrg"/>
+                        </td>
+                        <td>
+                            <span t-field="doc.ini_kilometer"/>
+                        </td>
+                        <td>
+                            <span t-field="doc.fin_chrg"/>
+                        </td>
+                        <td>
+                            <span t-field="doc.fin_kilometer"/>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <div style="text-align:right;">
+                    <strong>Amount:</strong>
+                    <span t-field="doc.amount"></span>
+                    <br/>
+                    <strong>Service Charges:</strong>
+                    <span t-field="doc.ser_charge"></span>
+                    <br/>
+                    <strong>Sub Total:</strong>
+                    <span t-field="doc.sub_total"></span>
+                    <br/>
+                </div>
+                <span t-esc="context_timestamp(datetime.datetime.today()).strftime('%d-%m-%Y %H:%M:%S')"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="actions_payment_card">
+        <t t-call="smart_electric_charger.report_payment_card"></t>
+    </template>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="district_tree" model="ir.ui.view">
+        <field name="name">district.details.tree</field>
+        <field name="model">district.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="district"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="district_form" model="ir.ui.view">
+        <field name="name">district.details.form</field>
+        <field name="model">district.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="district"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="district_action" model="ir.actions.act_window">
+        <field name="name">District</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">district.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

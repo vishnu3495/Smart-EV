@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+        <record id="seq_company_details" model="ir.sequence">
+            <field name="name">Company Sequence</field>
+            <field name="code">cm_electric_vehicle.details</field>
+            <field name="prefix">CM</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

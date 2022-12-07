@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <menuitem id="customer_root"
+              name="Smart EV"
+              web_icon="smart_electric_charger,static/description/icon.png"
+              sequence="0"/>
+
+    <menuitem id="customer_details_root"
+              name="Customer"
+              parent="customer_root"
+              groups="smart_electric_charger.group_smart_ev_customer"
+              sequence="1"/>
+
+    <menuitem id="customer_details_roots"
+              name="Add Customer"
+              parent="customer_details_root"
+              action="customer_action"
+              sequence="0"/>
+
+    <menuitem id="customer_vehicle_root"
+              name="Add Vehicle"
+              parent="customer_details_root"
+              action="customer_vehicle_action"
+              sequence="1"/>
+
+    <menuitem id="search_station_root"
+              name="Search Station"
+              parent="customer_details_root"
+              action="action_book_station"
+              sequence="2"/>
+
+    <menuitem id="book_station_root"
+              name="Book Station"
+              parent="customer_details_root"
+              action="booking_action"
+              sequence="3"/>
+
+    <menuitem id="charge_root"
+              name="Charge Now"
+              parent="customer_details_root"
+              action="charge_action"
+              sequence="4"/>
+
+    <menuitem id="payment_root"
+              name="Payment"
+              parent="customer_details_root"
+              action="payment_action"
+              sequence="5"/>
+
+    <menuitem id="station_details_root"
+              name="Company Manager"
+              parent="customer_root"
+              groups="smart_electric_charger.group_smart_ev_manager"
+              sequence="2"/>
+
+    <menuitem id="manager_detail_roots"
+              name="Add Manager"
+              parent="station_details_root"
+              action="manager_action"
+              sequence="0"/>
+
+
+    <menuitem id="companys_detail_roots"
+              name="Add Companies"
+              parent="station_details_root"
+              action="add_vehicle_details_action"
+              sequence="1"/>
+
+    <menuitem id="com_manager_details_root"
+              name="Companies"
+              parent="customer_root"
+              groups="smart_electric_charger.group_smart_ev_admin"
+              sequence="4"/>
+
+    <menuitem id="station_detail_roots"
+              name="Add Charging Station"
+              parent="com_manager_details_root"
+              action="charger_action"
+              sequence="0"/>
+
+
+    <menuitem id="company_detail_roots"
+              name="Add Brand"
+              parent="com_manager_details_root"
+              action="company_action"
+              sequence="1"/>
+
+    <menuitem id="place_detail_roots"
+              name="Add Place"
+              parent="com_manager_details_root"
+              action="place_action"
+              sequence="2"/>
+
+    <menuitem id="district_detail_roots"
+              name="Add District"
+              parent="com_manager_details_root"
+              action="district_action"
+              sequence="3"/>
+
+    <menuitem id="time_detail_roots"
+              name="Add Time"
+              parent="com_manager_details_root"
+              action="time_action"
+              sequence="4"/>
+
+    <menuitem id="connector_detail_roots"
+              name="Add Connector"
+              parent="com_manager_details_root"
+              action="electric_vehicle_action"
+              sequence="5"/>
+
+    <menuitem id="type_detail_roots"
+              name="Add Car Type"
+              parent="com_manager_details_root"
+              action="type_action"
+              sequence="4"/>
+
+
+    <menuitem id="menu_report"
+              name="Reports"
+              parent="customer_root"
+              groups="smart_electric_charger.group_smart_ev_admin"
+              sequence="5"/>
+
+    <menuitem id="menu_appointment_report"
+              name="Appointments"
+              parent="menu_report"
+              action="action_report_appointment"
+              sequence="0"/>
+
+
+
+    <menuitem id="menu_admin"
+              name="Admin"
+              groups="smart_electric_charger.group_smart_ev_admin"
+              parent="customer_root"
+              sequence="3"/>
+
+    <menuitem id="menu_admin_customer"
+              name="Customers"
+              parent="menu_admin"
+              action="customer_action_admin"
+              sequence="0"/>
+
+    <menuitem id="menu_admin_vehicles"
+              name="Customer Vehicles"
+              parent="menu_admin"
+              action="customer_vehicle_action_admin"
+              sequence="1"/>
+
+    <menuitem id="menu_admin_search"
+              name="Search Station"
+              parent="menu_admin"
+              action="action_book_station_admin"
+              sequence="2"/>
+
+    <menuitem id="menu_admin_book"
+              name="Book Station"
+              parent="menu_admin"
+              action="booking_action_admin"
+              sequence="3"/>
+
+    <menuitem id="menu_admin_charge"
+              name="Charge Now"
+              parent="menu_admin"
+              action="charge_action_admin"
+              sequence="4"/>
+
+    <menuitem id="menu_admin_payment"
+              name="Payment"
+              parent="menu_admin"
+              action="payment_action_admin"
+              sequence="4"/>
+
+    <menuitem id="menu_admin_managers"
+              name="Managers"
+              parent="menu_admin"
+              action="manager_action_admin"
+              sequence="5"/>
+
+    <menuitem id="menu_admin_manager"
+              name="Add Companies"
+              parent="menu_admin"
+              action="add_vehicle_details_action_admin"
+              sequence="6"/>
+
+</odoo>

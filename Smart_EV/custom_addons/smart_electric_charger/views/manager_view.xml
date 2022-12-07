@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_manager_tree" model="ir.ui.view">
+        <field name="name">manager.details.tree</field>
+        <field name="model">manager.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="man_name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="address"/>
+                <field name="dob"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_manager_form" model="ir.ui.view">
+        <field name="name">manager.details.form</field>
+        <field name="model">manager.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_draft" name="action_draft" string="Reset to Draft" class='btn-primary'
+                            type="object" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <button id="button_approve" name="action_approve" string="Approve" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','draft')]}" groups="smart_electric_charger.group_smart_ev_admin"/>
+                    <button id="button_cancel" name="action_cancel" string="Cancel" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','approved')]}" groups="smart_electric_charger.group_smart_ev_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,saved,cancelled"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Draft" bg_color="bg-info" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible':[('state','!=','approved')]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="man_name"/>
+                            <field name="address"/>
+                            <field name="dob" options="{'format': 'DD/MM/YYYY'}"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_manager_search" model="ir.ui.view">
+        <field name="name">manager.details.search</field>
+        <field name="model">manager.details</field>
+        <field name="arch" type="xml">
+            <search string="Managers">
+                <field name="man_name"/>
+                <filter string="Male" name="male" domain="[('gender','=','male')]"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"/>
+                <filter string="Others" name="other" domain="[('gender','=','other')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                    <filter string="Manager Name" name="man_name" context="{'group_by':'man_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="manager_action" model="ir.actions.act_window">
+        <field name="name">Manger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">manager.details</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="manager_action_admin" model="ir.actions.act_window">
+        <field name="name">Manger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">manager.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

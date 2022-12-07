@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <record id="view_payment_form" model="ir.ui.view">
+        <field name="name">payment.wizard.form</field>
+        <field name="model">payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="PAYMENT">
+                <group>
+                    <h1>Select the Payment Option?</h1>
+                    <footer>
+                        <button name="pay_now_button" string="CARD" class="btn-primary" type="object"/>
+                        <button string="Google Pay" class="btn-primary"
+                                onclick="location.href='https://pay.google.com' "/>
+                        <button string="Phone Pe" class="btn-primary"
+                                onclick="location.href='https://www.phonepe.com'"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_payments_station" model="ir.actions.act_window">
+        <field name="name">PAYMENT OPTIONS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_payment_form"/>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>

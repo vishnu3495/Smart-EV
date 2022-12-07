@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="payment_tree" model="ir.ui.view">
+        <field name="name">payment.details.tree</field>
+        <field name="model">payment.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="card"/>
+                <field name="card_name"/>
+                <field name="card_no"/>
+                <field name="exp_date"/>
+                <field name="cvv"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'approved'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="payment_form" model="ir.ui.view">
+        <field name="name">payment.details.form</field>
+        <field name="model">payment.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_invoice" name="generate_pdf" string="INVOICE" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','approved')]}"/>
+                    <button id="button_approve" name="action_approved" string="Approve" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','pay')]}" groups="smart_electric_charger.group_smart_ev_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pay,approved"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Draft" bg_color="bg-info" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <widget name="web_ribbon" title="Wait For Approval" bg_color="bg-success" attrs="{'invisible':[('state','!=','pay')]}"/>
+                    <widget name="web_ribbon" title="Payment Success" bg_color="bg-success" attrs="{'invisible':[('state','!=','approved')]}"/>
+                    <group>
+                        <group>
+                            <h1>Enter Card Details</h1>
+                            <field name="booking_id" readonly="1"/>
+                            <field name="card"/>
+                            <field name="card_name"/>
+                            <field name="card_no"/>
+                            <field name="exp_date"/>
+                            <field name="cvv"/>
+                            <button id="button_payed" name="action_pay" string="PAY" class='btn-primary'
+                                    type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="payment_action" model="ir.actions.act_window">
+        <field name="name">Payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payment.details</field>
+        <field name="domain">[('booking_id.cus_name_id.user_id','=',uid)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="payment_action_admin" model="ir.actions.act_window">
+        <field name="name">Payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payment.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

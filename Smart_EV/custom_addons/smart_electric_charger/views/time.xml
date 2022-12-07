@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="time_tree" model="ir.ui.view">
+        <field name="name">time.details.tree</field>
+        <field name="model">time.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="district_form" model="ir.ui.view">
+        <field name="name">time.details.form</field>
+        <field name="model">time.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="time"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="time_action" model="ir.actions.act_window">
+        <field name="name">Time</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">time.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

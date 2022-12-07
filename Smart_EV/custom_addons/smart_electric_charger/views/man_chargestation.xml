@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_charger_tree" model="ir.ui.view">
+        <field name="name">charger.details.tree</field>
+        <field name="model">man_station.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="refer"/>
+                <field name="com_name"/>
+                <field name="district_id"/>
+                <field name="place_id"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="timing"/>
+                <field name="slot"/>
+                <field name="reserved_slot"/>
+                <field name="power"/>
+                <field name="avg_chg_time"/>
+                <field name="charger_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_charger_form" model="ir.ui.view">
+        <field name="name">charger.details.form</field>
+        <field name="model">man_station.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="refer" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="com_name"/>
+                            <field name="district_id"/>
+                            <field name="place_id" domain="[('district_id','=',district_id)]"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="timing"/>
+                            <field name="power"/>
+                            <field name="avg_chg_time"/>
+                            <field name="charger_type"/>
+                        </group>
+                        <group>
+                            <field name="slot"/>
+                            <field name="reserved_slot"/>
+                        </group>
+                    </group>
+                    <notebook>
+                            <page string="Booked Customers">
+                                <field name="booking_ids">
+                                    <tree editable="bottom">
+                                        <field name="cus_name_id"/>
+                                        <field name="date"/>
+                                        <field name="times_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_charger_kanban" model="ir.ui.view">
+        <field name="name">man_station.details.kanban</field>
+        <field name="model">man_station.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="com_name"/>
+                <field name="district_id"/>
+                <field name="place_id"/>
+                <field name="timing"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="kanban_details">
+                                <div>
+                                    <field name="image" widget="image" class="oe_avatar"/>
+                                </div>
+                                <ul>
+                                    <li>
+                                        Company Name:
+                                        <field name="com_name"/>
+                                    </li>
+                                     <li>
+                                        District:
+                                        <field name="district_id"/>
+                                    </li>
+                                    <li>
+                                        Place:
+                                        <field name="place_id"/>
+                                    </li>
+                                    <li>
+                                        Timing:
+                                        <field name="timing"/>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_man_station_details_search" model="ir.ui.view">
+        <field name="name">man_station.details.search</field>
+        <field name="model">man_station.details</field>
+        <field name="arch" type="xml">
+            <search string="Stations">
+                <field name="com_name"/>
+                <field name="district_id"/>
+                <field name="place_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="District" name="district_id" context="{'group_by':'district_id'}"/>
+                    <filter string="Place" name="place_id" context="{'group_by':'place_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="charger_action" model="ir.actions.act_window">
+        <field name="name">Charger</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">man_station.details</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+</odoo>

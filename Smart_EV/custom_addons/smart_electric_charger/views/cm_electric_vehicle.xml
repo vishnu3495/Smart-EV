@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="cm_electric_tree" model="ir.ui.view">
+        <field name="name">electric.details.tree</field>
+        <field name="model">cm_electric_vehicle.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="type_id"/>
+                <field name="com_model"/>
+                <field name="range"/>
+                <field name="max_torque"/>
+                <field name="body_type"/>
+                <field name="max_power"/>
+                <field name="boot_space"/>
+                <field name="battery"/>
+                <field name="ground_clearance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cm_electric_form" model="ir.ui.view">
+        <field name="name">electric.details.form</field>
+        <field name="model">cm_electric_vehicle.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="img" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="type_id"/>
+                            <field name="com_model"/>
+                            <field name="range"/>
+                            <field name="max_torque"/>
+                            <field name="body_type"/>
+                        </group>
+                        <group>
+                            <field name="max_power"/>
+                            <field name="boot_space"/>
+                            <field name="battery"/>
+                            <field name="ground_clearance"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cm_vehicle_action" model="ir.actions.act_window">
+        <field name="name">Company Vehicle</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cm_electric_vehicle.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

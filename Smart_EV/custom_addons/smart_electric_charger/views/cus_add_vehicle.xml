@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_cus_vehicle_add_tree" model="ir.ui.view">
+        <field name="name">cus_vehicle.details.tree</field>
+        <field name="model">cus_vehicle.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="reg_no"/>
+                <field name="date_reg"/>
+                <field name="chase_no"/>
+                <field name="engine_no"/>
+                <field name="fuel"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cus_vehicle_add_form" model="ir.ui.view">
+        <field name="name">cus_vehicle.details.form</field>
+        <field name="model">cus_vehicle.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="name_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="model_id"/>
+                            <field name="reg_no"/>
+                        </group>
+                        <group>
+                            <field name="date_reg"/>
+                            <field name="chase_no"/>
+                            <field name="engine_no"/>
+                            <field name="fuel"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_customer_vehicle_kanban" model="ir.ui.view">
+        <field name="name">cus_vehicle.details.kanban</field>
+        <field name="model">cus_vehicle.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="reg_no"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="kanban_details">
+                                <div>
+                                    <field name="image" widget="image" class="oe_avatar"/>
+                                </div>
+                                <ul>
+                                    <li>
+                                        Customer Name:
+                                        <field name="name_id"/>
+                                    </li>
+                                    <li>
+                                        Company:
+                                        <field name="vehicle_id"/>
+                                    </li>
+                                     <li>
+                                        Model:
+                                        <field name="model_id"/>
+                                    </li>
+                                    <li>
+                                        Registration No:
+                                        <field name="reg_no"/>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_customer_vehicle_search" model="ir.ui.view">
+        <field name="name">cus_vehicle.details.search</field>
+        <field name="model">cus_vehicle.details</field>
+        <field name="arch" type="xml">
+            <search string="Vehicles">
+                <field name="name_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="reg_no"/>
+                <group expand="1" string="Group By">
+                    <filter string="Company" name="vehicle_id" context="{'group_by':'vehicle_id'}"/>
+                    <filter string="Model" name="model_id" context="{'group_by':'model_id'}"/>
+                    <filter string="Customer Name" name="name_id" context="{'group_by':'name_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+     <record id="view_vehicle_graph" model="ir.ui.view">
+        <field name="name">cus_vehicle.details.graph</field>
+        <field name="model">cus_vehicle.details</field>
+        <field name="arch" type="xml">
+            <graph string="Vehicle Graph" type="pie">
+                <field name="vehicle_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="customer_vehicle_action" model="ir.actions.act_window">
+        <field name="name">Vehicle</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cus_vehicle.details</field>
+        <field name="domain">[('name_id.user_id','=',uid)]</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
+    </record>
+
+     <record id="customer_vehicle_action_admin" model="ir.actions.act_window">
+        <field name="name">Vehicle</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cus_vehicle.details</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
+    </record>
+</odoo>

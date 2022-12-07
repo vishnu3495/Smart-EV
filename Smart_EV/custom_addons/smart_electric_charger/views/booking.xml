@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_booking_form" model="ir.ui.view">
+        <field name="name">booking.details.form</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_draft" name="action_draft" string="Reset to Draft" class='btn-primary'
+                            type="object" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <button id="button_booked" name="action_booked" string="Book" class='btn-primary' type="object"
+                            attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button id="button_cancel" name="action_cancel" string="Cancel" class='btn-primary' type="object" attrs="{'invisible':[('state','!=','booked')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,booked,cancelled"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Draft" bg_color="bg-info" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <widget name="web_ribbon" title="Booked" bg_color="bg-success" attrs="{'invisible':[('state','!=','booked')]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible':[('state','!=','cancelled')]}"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            BOOKING DETAILS
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cus_name_id"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="address"/>
+                            <field name="dob"/>
+                            <field name="emails"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group>
+                            <field name="reg_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="model_id"/>
+                            <field name="chase_no"/>
+                            <field name="engine_no"/>
+                            <field name="fuel"/>
+                        </group>
+                        <br/>
+                        <div class="oe_title">
+                            <h1>
+                                BOOK STATION
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <field name="dis_name_id"/>
+                            <field name="place_id" domain="[('district_id','=',dis_name_id)]"/>
+                            <field name="com_name_id" domain="[('place_id','=',place_id)]"/>
+                            <field name="date"/>
+                            <field name="times_id"/>
+                            <field name="type"/>
+                            <field name="con_type_id"/>
+                            <field name="is_charge_completed" invisible="1"/>
+                            <button id="button_create_appointment" name="%(action_charge_station)d" string="CHARGE NOW"
+                                    class="btn-primary" type="action" attrs="{'invisible':['|',('state','!=','booked'),('is_charge_completed','=',True)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_booking_kanban" model="ir.ui.view">
+        <field name="name">booking.details.kanban</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="cus_name_id"/>
+                <field name="reg_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="kanban_details">
+                                <div>
+                                    <field name="image" widget="image" class="oe_avatar"/>
+                                </div>
+                                <ul>
+                                    <li>
+                                        Name:
+                                        <field name="cus_name_id"/>
+                                    </li>
+                                    <li>
+                                        Registration No:
+                                        <field name="reg_id"/>
+                                    </li>
+                                    <li>
+                                        Vehicle:
+                                        <field name="vehicle_id"/>
+                                    </li>
+                                    <li>
+                                        Model:
+                                        <field name="model_id"/>
+                                    </li>
+                                    <li>
+                                        Slot Date:
+                                        <field name="date"/>
+                                    </li>
+                                    <li>
+                                        Slot Time:
+                                        <field name="times_id"/>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="booking_details_tree" model="ir.ui.view">
+        <field name="name">booking.details.tree</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cus_name_id"/>
+                <field name="reg_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="date"/>
+                <field name="times_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'booked'"
+                       decoration-danger="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_booking_vehicle_search" model="ir.ui.view">
+        <field name="name">booking.details.search</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <search string="Booking">
+                <field name="cus_name_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="reg_id"/>
+                <field name="com_name_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Company" name="vehicle_id" context="{'group_by':'vehicle_id'}"/>
+                    <filter string="Model" name="model_id" context="{'group_by':'model_id'}"/>
+                    <filter string="Customer Name" name="cus_name_id" context="{'group_by':'cus_name_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_booking_details_graph" model="ir.ui.view">
+        <field name="name">booking.details.graph</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <graph string="Booking Graph" type="pie">
+                <field name="com_name_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_booking_details_calendar" model="ir.ui.view">
+        <field name="name">booking_details.calendar</field>
+        <field name="model">booking.details</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment Calendar" date_start="date" color="cus_name_id" mode="month" quick_add="False">
+                <field name="cus_name_id"/>
+                <field name="reg_id"/>
+                <field name="vehicle_id"/>
+                <field name="model_id"/>
+                <field name="times_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="booking_action" model="ir.actions.act_window">
+        <field name="name">Booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">booking.details</field>
+        <field name="domain">[('cus_name_id.user_id','=',uid)]</field>
+        <field name="view_mode">tree,form,kanban,calendar,graph</field>
+    </record>
+
+    <record id="booking_action_admin" model="ir.actions.act_window">
+        <field name="name">Booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">booking.details</field>
+        <field name="view_mode">tree,form,kanban,calendar,graph</field>
+    </record>
+
+</odoo>

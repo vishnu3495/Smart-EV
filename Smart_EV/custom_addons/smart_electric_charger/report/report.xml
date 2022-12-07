@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="payment_details_paperformat" model="report.paperformat">
+            <field name="name">PAYMENT DETAILS</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">150</field>
+            <field name="page_width">150</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_spacing">37</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+    <record id="actions_payment_card_id" model="ir.actions.report">
+        <field name="name">Payment Card</field>
+        <field name="model">charge.details</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">smart_electric_charger.report_payment_card</field>
+        <field name="report_file">smart_electric_charger.report_payment_card</field>
+        <field name="binding_model_id" ref="model_charge_details"/>
+        <field name="paperformat_id" ref='smart_electric_charger.payment_details_paperformat'/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_company_appointment_xlsx" model="ir.actions.report">
+        <field name="name">Appointment Excel</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">smart_electric_charger.report_company_details_xls</field>
+        <field name="report_file">smart_electric_charger.report_company_details_xls  </field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

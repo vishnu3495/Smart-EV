@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+        <record id="seq_station_details" model="ir.sequence">
+            <field name="name">Station Sequence</field>
+            <field name="code">man_station.details</field>
+            <field name="prefix">CS</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

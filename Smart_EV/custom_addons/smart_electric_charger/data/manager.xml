@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <data>
+        <record id="seq_manager_details" model="ir.sequence">
+            <field name="name">Manager Sequence</field>
+            <field name="code">manager.details</field>
+            <field name="prefix">MR</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

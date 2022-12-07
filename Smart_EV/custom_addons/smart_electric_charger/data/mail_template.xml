@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="smart_electric_charger_payment_email" model="mail.template">
+        <field name="name">Payment Receipt</field>
+        <field name="model_id" ref="smart_electric_charger.model_charge_details"/>
+        <field name="email_from">${object.env.user.partner_id.email}</field>
+        <field name="email_to">${object.cus_name_id.email_to}</field>
+        <field name="subject">Payment Details</field>
+        <field name="body_html"><![CDATA[
+           <p>Dear <b>${object.cus_name_id.cus_name}</b>,
+                    Please Check the Invoice Attached Below.
+
+              <p>
+         </p>
+         <p style="color:grey">Note: This is an auto-generated mail. Please do not reply.</p><br/><br/>
+            ]]>
+        </field>
+        <field name="report_template" ref="smart_electric_charger.actions_payment_card_id"/>
+        <field name="report_name">Payment Card</field>
+    </record>
+</odoo>
+
+
+
